@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Sample Application</title>
+    <link rel="stylesheet" href="lib.min.css" />
+    <link rel="stylesheet" href="all.min.css" />
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse" role="navigation">
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div clas="col-md-12" id="github-app">          
+                 
+            </div>
+        </div>
+    </div>
+
+    <script type="text/x-handlebars">              
+        {{outlet}}
+    </script>
+
+    <script type="text/x-handlebars" id="index">
+        <h2>Github NamesHub</h2>
+        <hr /> 
+        {{#each}}
+            <li>{{#link-to 'user' this.login}}{{name}}{{/link-to}}</li>
+        {{/each}}
+        <p>{{renderedOn}}</p>
+    </script>
+    <script type="text/x-handlebars" id="user">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="well">
+                    <p class="text-center">
+                        <img {{bind-attr src="avatar_url"}} style="width: 140px">
+                    </p>
+                    <p>
+                        {{#link-to 'user'}}<h4>{{name}}</h4>{{/link-to}}
+                        {{company}} <br />
+                        {{location}} <br />
+                        {{email}} <br />
+                    </p>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Followers</th>
+                            <td>{{followers}}</td>
+                        </tr>
+                        <tr>
+                            <th>Repositories</th>
+                            <td>{{public_repos}}</td>
+                        </tr>
+                        <tr>
+                            <th>Gists</th>
+                            <td>{{public_gists}}</td>
+                        </tr>                        
+                    </table>
+                    <p>
+                        {{#link-to 'index'}}Back{{/link-to}}
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-8">
+                {{outlet}}
+            </div>
+        </div>
+    </script>
+    <script type="text/x-handlebars" id="user/index">
+        <h2>{{name}}s Github</h2>
+        <hr />
+        <ul>
+            <li>{{#link-to 'repositories' this}}Repositories{{/link-to}}</li>
+            <li>{{#link-to 'repositories'}}Events{{/link-to}}</li>
+            <li>{{#link-to 'repositories'}}Gists{{/link-to}}</li>
+        </ul>
+    </script>
+
+    <script type="text/x-handlebars" id="repositories">
+        <ol class="breadcrumb">
+            <li>{{#link-to 'index'}}Devs{{/link-to}}</li>
+            <li>{{#link-to 'user' user}}{{user.name}}{{/link-to}}</li>
+            <li><a href="#">Repositories</a></li>
+        </ol>
+        <table class="table table-striped">
+            {{#each}}
+                <tr>
+                    <td><h4>{{#link-to 'repository' this}}{{name}}{{/link-to}}</h4></td> 
+                    <td>{{description}}</td>
+                </tr>
+            {{/each}}
+        </table>
+    </script>
+    <script type="text/x-handlebars" id="repository">
+        <ol class="breadcrumb">
+            <li>{{#link-to 'index'}}Devs{{/link-to}}</li>
+            <li>{{#link-to 'user' user}}{{user.name}}{{/link-to}}</li>
+            <li>{{#link-to 'repositories'}}Repositories{{/link-to}}</li>
+            <li class="active">{{name}}</li>
+        </ol>
+        <h2>{{name}}</h2>
+        <p>{{description}}</p>
+        <ul>
+            <li>Language: {{language}}</li>
+            <li>Watchers: {{watchers}}</li>
+            <li>Open Issues: {{watchers}}</li>
+            <li>Clone: <b>{{clone_url}}</b></li>
+            <li>Web: <a {{bind-attr href=html_url}} target='_blank'>{{html_url}}</a></li>
+        </ul>
+    </script>   
+
+
+    <script src="lib.min.js"></script>
+    <script src="all.min.js"></script>
+</body>
+</html>
